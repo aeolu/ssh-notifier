@@ -4,6 +4,9 @@
 
 define('INTERVAL', 1);
 
+$pid = getmypid();
+notify("SSH Notifier started", "To kill: kill $pid");
+
 main();
 
 function main(){
