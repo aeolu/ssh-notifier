@@ -3,8 +3,21 @@
 <?php
 
 $exec = shell_exec("w -h"); // get all connections
-echo print_r(filterData($exec), true);
+$connections = filterData($exec);
+$ssh_connections = filterSSH($connections);
 
+echo print_r($ssh_connections, true);
+
+function filterSSH($connections){
+	
+	$ssh_connections = array();
+
+	for($i = 0; $i < count($connections); $i++){
+		if($connections[$i]['FROM'] != '-') $ssh_connections[] = $connections[$i];
+	}
+
+	return $ssh_connections;
+}
 
 function filterData($data){
 
@@ -16,11 +29,13 @@ function filterData($data){
 		$temp = array();
     	$values = preg_split("/\s+/", $datum);
 		for($i = 0; $i < count($values); $i++){
+
 			// Appends the excess to the job header
 			if($headers[$i])
 				$temp[$headers[$i]] = $values[$i];
 			else
 				$temp[$headers[count($headers)-1]] .= " " . $values[$i];
+
 		}
 		$connections[] = $temp;
 	}
