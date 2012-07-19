@@ -2,11 +2,51 @@
 
 <?php
 
-$exec = shell_exec("w -h"); // get all connections
-$connections = filterData($exec);
-$ssh_connections = filterSSH($connections);
+define('INTERVAL', 1);
 
-echo print_r($ssh_connections, true);
+main();
+
+function main(){
+	$status = "";
+	$exec = shell_exec("w -h"); // get all connections
+	$ssh = array(
+		'current'	=> 	array(),
+		'update' 	=> 	array()
+	);
+	$connections = filterData($exec);
+	$ssh_connections = filterSSH($connections);
+	$connection_count = count($ssh_connections); 
+
+	$ssh['current'] = $ssh_connections;
+
+	while(true){
+		$exec = shell_exec("w -h"); // get all connections
+		$connections = filterData($exec);
+		$ssh_connections = filterSSH($connections);
+		$current_count = count($ssh_connections);		
+
+		if($connection_count != $current_count){
+			$ssh['update'] = $ssh_connections;
+			
+			if($current_count > $connection_count){
+				$status = "connected";
+				$update = array_values(array_diff_assoc($ssh['update'], $ssh['current']));
+			}else{
+				$status = "disconnected";
+				$update = array_values(array_diff_assoc($ssh['current'], $ssh['update']));
+			}
+
+			unset($update);
+			$connection_count = $current_count;
+			$ssh['current'] = $ssh['update'];
+		}
+
+		sleep(INTERVAL);
+	}
+	
+
+
+}
 
 function filterSSH($connections){
 	
