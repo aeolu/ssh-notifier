@@ -60,7 +60,7 @@ If two people disconnect at the same time, it'll only notify for the first guy..
 ### Array Verification
 To make it quicker, I just made a difference counter checker... Kinda stupid now that I think about it cause I've used `array_diff_assoc` which could've made counter checking void...
 
-**NOTE: Gonna update when later, I'm sleepy... **
+**NOTE: Gonna update later, I'm sleepy...**
 
 ### WIndows Support
 I'm really not sure if Windows has a notification system or something, but if has, then adding it would be easy peazy! ;)
