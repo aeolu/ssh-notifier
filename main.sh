@@ -16,3 +16,14 @@ function detectSystem(){
 
 	return ($system) ? ucfirst($system) : 'Unkown';
 }
+
+function getConnectionHeaders(){
+	$headers = array();
+	$exec = shell_exec('w');
+	
+	$row_headers = explode("\n", $exec);
+	$headers = preg_split("/\s+/", $row_headers[1]);
+
+	return $headers;	
+}
+
