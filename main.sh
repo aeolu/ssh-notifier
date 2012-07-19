@@ -2,11 +2,12 @@
 
 <?php
 
-define('INTERVAL', 5);
+define('INTERVAL', 1);
 
 main();
 
 function main(){
+	$status = "";
 	$exec = shell_exec("w -h"); // get all connections
 	$ssh = array(
 		'current'	=> 	array(),
@@ -25,8 +26,19 @@ function main(){
 		$current_count = count($ssh_connections);		
 
 		if($connection_count != $current_count){
-			echo "Something changed!\n";
+			$ssh['update'] = $ssh_connections;
+			
+			if($current_count > $connection_count){
+				$status = "connected";
+				$update = array_values(array_diff_assoc($ssh['update'], $ssh['current']));
+			}else{
+				$status = "disconnected";
+				$update = array_values(array_diff_assoc($ssh['current'], $ssh['update']));
+			}
+
+			unset($update);
 			$connection_count = $current_count;
+			$ssh['current'] = $ssh['update'];
 		}
 
 		sleep(INTERVAL);
