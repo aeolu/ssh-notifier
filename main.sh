@@ -28,15 +28,23 @@ function main(){
 		if($connection_count != $current_count){
 			$ssh['update'] = $ssh_connections;
 			
+			// Trace the connection difference
 			if($current_count > $connection_count){
-				$status = "connected";
+				$head = "SSH connection started";
 				$update = array_values(array_diff_assoc($ssh['update'], $ssh['current']));
 			}else{
-				$status = "disconnected";
+				$head = "SSH connection finished";
 				$update = array_values(array_diff_assoc($ssh['current'], $ssh['update']));
 			}
+	
+			$update = $update[0];
+			
+			// create the message for the notification
+			$message = "{$update['USER']}@{$update['FROM']} [{$update['TTY']}]";
+			notify($head, $message);
 
 			unset($update);
+			// Update persisent information
 			$connection_count = $current_count;
 			$ssh['current'] = $ssh['update'];
 		}
@@ -45,6 +53,20 @@ function main(){
 	}
 	
 
+
+}
+
+function notify($head, $message){
+
+	$system = detectSystem();
+	switch($system){
+		case 'Darwin':
+			shell_exec("growlnotify -m '$message' '$head'");
+			break;
+		case 'Linux':
+			shell_exec("notify-send '$head' '$message'");
+			break;
+	}
 
 }
 
