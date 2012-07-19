@@ -2,11 +2,39 @@
 
 <?php
 
-$exec = shell_exec("w -h"); // get all connections
-$connections = filterData($exec);
-$ssh_connections = filterSSH($connections);
+define('INTERVAL', 5);
 
-echo print_r($ssh_connections, true);
+main();
+
+function main(){
+	$exec = shell_exec("w -h"); // get all connections
+	$ssh = array(
+		'current'	=> 	array(),
+		'update' 	=> 	array()
+	);
+	$connections = filterData($exec);
+	$ssh_connections = filterSSH($connections);
+	$connection_count = count($ssh_connections); 
+
+	$ssh['current'] = $ssh_connections;
+
+	while(true){
+		$exec = shell_exec("w -h"); // get all connections
+		$connections = filterData($exec);
+		$ssh_connections = filterSSH($connections);
+		$current_count = count($ssh_connections);		
+
+		if($connection_count != $current_count){
+			echo "Something changed!\n";
+			$connection_count = $current_count;
+		}
+
+		sleep(INTERVAL);
+	}
+	
+
+
+}
 
 function filterSSH($connections){
 	
