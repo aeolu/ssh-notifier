@@ -2,7 +2,9 @@
 
 <?php
 
+include_once dirname(__FILE__) . '/benchmark.php';
 define('INTERVAL', 1);
+define('RUN_BENCHMARK', false);
 
 class SSHNotifier{
 
@@ -69,6 +71,7 @@ class SSHNotifier{
 				$this->ssh['current'] = $this->ssh['update'];
 			}
 
+			Benchmark::getInstance()->execute(RUN_BENCHMARK);
 			sleep(INTERVAL);
 		}
 		
