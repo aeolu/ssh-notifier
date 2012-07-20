@@ -16,9 +16,11 @@ class Benchmark{
 		$this->onRequestStart();
 	}
 
-	public function execute(){
-		$this->memoryUsage();
-		$this->cpuUsage();
+	public function execute($run){
+		if($run){
+			$this->memoryUsage();
+			$this->cpuUsage();
+		}
 	}
 
 	public static function getInstance(){
