@@ -96,7 +96,7 @@ function filterData($data){
 		for($i = 0; $i < count($values); $i++){
 
 			// Appends the excess to the job header
-			if($headers[$i])
+			if(isset($headers[$i]))
 				$temp[$headers[$i]] = $values[$i];
 			else
 				$temp[$headers[count($headers)-1]] .= " " . $values[$i];
