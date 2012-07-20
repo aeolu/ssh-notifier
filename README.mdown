@@ -78,14 +78,16 @@ I'm really not sure if Windows has a notification system or something, but if ha
 
 #### CPU Usage
 
-  *Script Initialization:* 2.44% (Which ws suprisingly high IMO)
-  *IDLE Time:* 0.03% - 0.04% (The next second after initialization)
-  *Average:* 0.04% (Pretty damn nice)
-  *When Connecting and Disconnecting:* 0.04% (Around 10 SSH Continuous connections)
+  * *Script Initialization:* 2.44% (Which ws suprisingly high IMO)
+  * *IDLE Time:* 0.03% - 0.04% (The next second after initialization)
+  * *Average:* 0.04% (Pretty damn nice)
+  * *When Connecting and Disconnecting:* 0.04% (Around 10 SSH Continuous connections)
 
 #### RAM Usage
 
-  *Script Initialization:* 768Kb
-  *IDLE Time:* 768Kb though midway it adjusted to 1,024Kb
-  *Average:* 768Kb - 1,024Kb
-  *When Connecting and Disconnecting:* 768Kb - 1,024Kb (I'm not sure if this is a good thing or not though)
+  * *Script Initialization:* 768Kb
+  * *IDLE Time:* 768Kb though midway it adjusted to 1,024Kb
+  * *Average:* 768Kb - 1,024Kb
+  * *When Connecting and Disconnecting:* 768Kb - 1,024Kb (I'm not sure if this is a good thing or not though)
+
+
