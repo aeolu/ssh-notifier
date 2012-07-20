@@ -115,9 +115,10 @@ function detectSystem(){
 
 	foreach($operating_systems as $operating_system){
 		// find a certain OS identifier
-		if(strpos($uname, $operating_system) !== false)
+		if(strpos($uname, $operating_system) !== false){
 			$system = $operating_system;
 			break;
+		}
 	}
 
 	return ($system) ? ucfirst($system) : 'Unkown';
