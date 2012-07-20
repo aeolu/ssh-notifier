@@ -89,25 +89,3 @@ I'm really not sure if Windows has a notification system or something, but if ha
   *IDLE Time:* 768Kb though midway it adjusted to 1,024Kb
   *Average:* 768Kb - 1,024Kb
   *When Connecting and Disconnecting:* 768Kb - 1,024Kb (I'm not sure if this is a good thing or not though)
-
-### Acer Aspire 1825ptz
-
- * **Processor**: Intel SU400
- * **RAM**: 4GB
- * **Operating System**: Ubuntu 12.04 LTS Precise Pangolin
-
- * **INTERVAL**: 1 second
-
-#### CPU Usage
-
-  *Script Initialization:*
-  *IDLE Time:*
-  *Average:*
-  *When Connecting and Disconnecting:*
-
-#### RAM Usage
-
-  *Script Initialization:*
-  *IDLE Time:*
-  *Average:*
-  *When Connecting and Disconnecting:*
