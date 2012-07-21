@@ -66,28 +66,3 @@ To make it quicker, I just made a difference counter checker... Kinda stupid now
 I'm really not sure if Windows has a notification system or something, but if has, then adding it would be easy peazy! ;)
 
 
-## Performance
-
-### Macbook Air 13" 2010
-
- * **Processor**: Intel Core 2 Duo
- * **RAM**: 4GB
- * **Operating System**: OS X Lion 10.7.4
-
- * **INTERVAL**: 1 second
-
-#### CPU Usage
-
-  * *Script Initialization:* 2.44% (Which ws suprisingly high IMO)
-  * *IDLE Time:* 0.03% - 0.04% (The next second after initialization)
-  * *Average:* 0.04% (Pretty damn nice)
-  * *When Connecting and Disconnecting:* 0.04% (Around 10 SSH Continuous connections)
-
-#### RAM Usage
-
-  * *Script Initialization:* 768Kb
-  * *IDLE Time:* 768Kb though midway it adjusted to 1,024Kb
-  * *Average:* 768Kb - 1,024Kb
-  * *When Connecting and Disconnecting:* 768Kb - 1,024Kb (I'm not sure if this is a good thing or not though)
-
-

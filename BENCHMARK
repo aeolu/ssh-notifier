@@ -1,0 +1,19 @@
+## Macbook Air 13" 2010
+
+--  Spcifications  --
+
+Processor: 						Intel Core 2 Duo
+RAM: 							4GB
+Operating System:				OS X Lion 10.7.4
+
+--  CPU Usage  --
+
+Script Initialization:		 	2.44% 				(Which ws suprisingly high IMO)
+Average Usage:					0.035% 				(Around 10 SSH Continuous connections)
+Peak Usage:						0.04%
+
+--  RAM Usage  --
+
+Script Initialization:		 	768 kB				
+Average Usage:					819 kB
+Peak Usage:						1,024 kB
