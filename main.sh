@@ -1,4 +1,3 @@
-#!/usr/bin/php
 
 <?php
 
@@ -65,7 +64,7 @@ class SSHNotifier{
 				}
 		
 				$difference = $difference[0];
-				
+				echo print_r($this->connection_counters, true);			
 				// create the message for the notification
 				$message = "{$difference['USER']}@{$difference['FROM']} [{$difference['TTY']}]";
 				System::notify($head, $message);
@@ -76,7 +75,7 @@ class SSHNotifier{
 				$this->ssh['current'] = $this->ssh['update'];
 			}
 
-			Benchmark::getInstance()->execute(RUN_BENCHMARK, $connection_counters);
+			Benchmark::getInstance()->execute(RUN_BENCHMARK, $this->connection_counters);
 			sleep(INTERVAL);
 		}
 		
