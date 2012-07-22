@@ -2,9 +2,8 @@
 
 <?php
 
+include_once dirname(__FILE__) . '/config.php';
 include_once dirname(__FILE__) . '/benchmark.php';
-define('INTERVAL', 1);
-define('RUN_BENCHMARK', false);
 
 class SSHNotifier{
 

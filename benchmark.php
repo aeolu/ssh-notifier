@@ -1,16 +1,22 @@
 <?php
 
+include_once dirname(__FILE__) . '/config.php';
 class Benchmark{
 	
 	private static $instance;
 	private $cpu = array(
 		'current' 	=>	0,
 		'peak'		=>	0,
+		'total'		=> 	0,
+		'average'	=> 	0,
 	);
 	private $memory = array(
 		'current' 	=>	0,
 		'peak'		=>	0,
+		'total'		=> 	0,
+		'average'	=>	0,
 	);
+	private $counter = 0;
 
 	protected function __construct(){
 		$this->onRequestStart();
@@ -18,10 +24,15 @@ class Benchmark{
 
 	public function execute($run){
 		if($run){
+			$this->counter++;
 			$this->memoryUsage();
 			$this->cpuUsage();
 		}
+		if($this->counter == RUNTIME_COUNT*(60)){
+			exit;
+		}
 	}
+
 
 	public static function getInstance(){
 		if(empty(self::$instance)) self::$instance = new Benchmark();
@@ -31,20 +42,25 @@ class Benchmark{
 	private function memoryUsage(){
 		$this->memory['current'] = memory_get_usage(1)/1024;
 		$this->memory['peak'] = memory_get_peak_usage(1)/1024;
-		
+		$this->memory['total'] += $this->memory['current'];
+		$this->memory['average'] = $this->memory['total']/$this->counter;
+
 		echo "-- Memory --\n\n";
-		echo "CURRENT:\t\t{$this->memory['current']}kB\n";
-		echo "PEAK:\t\t\t{$this->memory['peak']}kB\n";
+		echo "CURRENT:			{$this->memory['current']}kB\n";
+		echo "PEAK:				{$this->memory['peak']}kB\n";
+		echo "AVERAGE:			{$this->memory['average']}kB\n";
 	}
 
 	private function cpuUsage(){
 		$this->cpu['current'] = $this->getCpuUsage();
-		if($this->cpu['current'] > $this->cpu['peak'])
-			$this->cpu['peak'] = $this->cpu['current'];
+		$this->cpu['total'] += $this->cpu['current'];
+		$this->cpu['average'] = $this->cpu['total']/$this->counter;
+		if($this->cpu['current'] > $this->cpu['peak']) $this->cpu['peak'] = $this->cpu['current'];
 
 		echo "-- CPU Usage --\n\n";
-		echo "CURRENT:\t\t{$this->cpu['current']}%\n";
-		echo "PEAK:\t\t\t{$this->cpu['peak']}%\n";
+		echo "CURRENT:			{$this->cpu['current']}%\n";
+		echo "PEAK:				{$this->cpu['peak']}%\n";
+		echo "AVERAGE:			{$this->cpu['average']}%\n";
 	}
 
 	private function onRequestStart() {
