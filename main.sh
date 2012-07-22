@@ -1,17 +1,19 @@
-#!/usr/bin/php
 
 <?php
 
+include_once dirname(__FILE__) . '/config.php';
+include_once dirname(__FILE__) . '/system.php';
 include_once dirname(__FILE__) . '/benchmark.php';
-define('INTERVAL', 1);
-define('RUN_BENCHMARK', false);
 
 class SSHNotifier{
 
 	private static $instance;
-	private $system;
 	private $pid;
 	private $status;
+	private $connection_counters = array(
+		'started' 	=> 	0,
+		'finished' 	=>	0
+	);
 	private $ssh = array(
 		'current'	=> 	array(),
 		'update' 	=> 	array()
@@ -27,10 +29,10 @@ class SSHNotifier{
 
 		// Initialize global variables
 		$this->pid = getmypid();
-		$this->system = $this->detectSystem(); // Set the user's operating system
+		System::detectSystem();
 
 		//Notify the user
-		$this->notify("SSH Notifier started", "To kill: kill {$this->pid}");
+		System::notify("SSH Notifier started", "To kill: kill {$this->pid}");
 
 		$exec = shell_exec("w -h"); // get all connections
 		
@@ -54,16 +56,18 @@ class SSHNotifier{
 				if($current_count > $connection_count){
 					$head = "SSH connection started";
 					$difference = array_values(array_diff_assoc($this->ssh['update'], $this->ssh['current']));
+					$this->connection_counters['started']++;
 				}else{
 					$head = "SSH connection finished";
 					$difference = array_values(array_diff_assoc($this->ssh['current'], $this->ssh['update']));
+					$this->connection_counters['finished']++;
 				}
 		
 				$difference = $difference[0];
-				
+				echo print_r($this->connection_counters, true);			
 				// create the message for the notification
 				$message = "{$difference['USER']}@{$difference['FROM']} [{$difference['TTY']}]";
-				$this->notify($head, $message);
+				System::notify($head, $message);
 
 				unset($difference);
 				// Update persisent information
@@ -71,24 +75,11 @@ class SSHNotifier{
 				$this->ssh['current'] = $this->ssh['update'];
 			}
 
-			Benchmark::getInstance()->execute(RUN_BENCHMARK);
+			Benchmark::getInstance()->execute(RUN_BENCHMARK, $this->connection_counters);
 			sleep(INTERVAL);
 		}
 		
 
-
-	}
-
-	private function notify($head, $message){
-
-		switch($this->system){
-			case 'Darwin':
-				shell_exec("growlnotify -m '$message' '$head'");
-				break;
-			case 'Linux':
-				shell_exec("notify-send '$head' '$message'");
-				break;
-		}
 
 	}
 
@@ -125,22 +116,6 @@ class SSHNotifier{
 		}
 
 	    return $connections;
-	}
-
-	private function detectSystem(){
-		$operating_systems = array('darwin', 'linux', 'win');
-		$uname = strtolower(php_uname()); // get system information
-		$system = '';
-
-		foreach($operating_systems as $operating_system){
-			// find a certain OS identifier
-			if(strpos($uname, $operating_system) !== false){
-				$system = $operating_system;
-				break;
-			}
-		}
-
-		return ($system) ? ucfirst($system) : 'Unkown';
 	}
 
 	private function getConnectionHeaders(){
