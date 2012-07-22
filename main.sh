@@ -11,6 +11,10 @@ class SSHNotifier{
 	private $system;
 	private $pid;
 	private $status;
+	private $connection_counters = array(
+		'started' 	=> 	0,
+		'finished' 	=>	0
+	);
 	private $ssh = array(
 		'current'	=> 	array(),
 		'update' 	=> 	array()
@@ -53,9 +57,11 @@ class SSHNotifier{
 				if($current_count > $connection_count){
 					$head = "SSH connection started";
 					$difference = array_values(array_diff_assoc($this->ssh['update'], $this->ssh['current']));
+					$this->connection_counters['started']++;
 				}else{
 					$head = "SSH connection finished";
 					$difference = array_values(array_diff_assoc($this->ssh['current'], $this->ssh['update']));
+					$this->connection_counters['finished']++;
 				}
 		
 				$difference = $difference[0];
@@ -70,7 +76,7 @@ class SSHNotifier{
 				$this->ssh['current'] = $this->ssh['update'];
 			}
 
-			Benchmark::getInstance()->execute(RUN_BENCHMARK);
+			Benchmark::getInstance()->execute(RUN_BENCHMARK, $connection_counters);
 			sleep(INTERVAL);
 		}
 		

@@ -22,7 +22,7 @@ class Benchmark{
 		$this->onRequestStart();
 	}
 
-	public function execute($run){
+	public function execute($run, $connection_counter){
 		if($run){
 			$this->counter++;
 			$this->memoryUsage();
