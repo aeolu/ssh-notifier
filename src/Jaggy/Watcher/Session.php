@@ -55,7 +55,7 @@ class Session
      * List out all the users in the system..
      *
      * @access public
-     * @return void
+     * @return array
      */
     public function get()
     {

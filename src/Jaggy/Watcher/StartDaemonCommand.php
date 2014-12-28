@@ -46,6 +46,6 @@ class StartDaemonCommand extends EndlessCommand
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('test');
+        $output->writeln($this->count);
     }
 }
