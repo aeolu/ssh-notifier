@@ -1,9 +1,12 @@
 {
-  "name": "jaggyspaghetti/ssh-notify",
+  "name": "jaggyspaghetti/ssh-watcher",
   "description": "Daemon to notify all ssh connections",
   "autoload": {
     "psr-4": {
       "": "src"
     }
+  },
+  "require": {
+    "symfony/console": "~2.6"
   }
 }
