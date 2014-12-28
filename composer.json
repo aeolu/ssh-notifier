@@ -7,6 +7,7 @@
     }
   },
   "require": {
-    "symfony/console": "~2.6"
+    "symfony/console": "~2.6",
+    "wrep/daemonizable-command": "~1.2"
   }
 }

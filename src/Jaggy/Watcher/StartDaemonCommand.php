@@ -1,14 +1,14 @@
 <?php
 namespace Jaggy\Watcher;
 
-use Symfony\Component\Console\Command\Command;
+use Wrep\Daemonizable\Command\EndlessCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Starts the watcher daemon.
  *
- * @uses        \Symfony\Component\Console\Command\Command
+ * @uses        \Wrep\Daemonizable\Command\EndlessCommand
  * @uses        \Symfony\Component\Console\Input\InputInterface
  * @uses        \Symfony\Component\Console\Output\OutputInterface
  *
@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @license     http://www.wtfpl.net/ Do What The Fuck You Want To Public License
  * @since       Class available since Release 1.1.0
  */
-class StartDaemonCommand extends Command
+class StartDaemonCommand extends EndlessCommand
 {
 
     /**
