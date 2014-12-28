@@ -5,7 +5,7 @@ use AdamBrett\ShellWrapper\Runners\ShellExec;
 use AdamBrett\ShellWrapper\Command\Builder as CommandBuilder;
 
 /**
- * Handles all the shell commands.
+ * Handles the console sessions.
  *
  * @property    \AdamBrett\ShellWrapper\Command\Builder    builder
  * @property    \AdamBrett\ShellWrapper\Runners\ShellExec  shell
@@ -15,12 +15,12 @@ use AdamBrett\ShellWrapper\Command\Builder as CommandBuilder;
  *
  * @package     Jaggy\Watcher
  * @author      Jaggy Gauran <jaggygauran@gmail.com>
- * @version     Release: 0.1.3
+ * @version     Release: 0.1.5
  * @link        https://github.com/
  * @license     http://www.wtfpl.net/ Do What The Fuck You Want To Public License
  * @since       Class available since Release 1.1.0
  */
-class Shell
+class Session
 {
 
     /**
@@ -57,7 +57,7 @@ class Shell
      * @access public
      * @return void
      */
-    public function sessions()
+    public function get()
     {
         $sessions = [];
         $stream   = $this->shell->run($this->builder);

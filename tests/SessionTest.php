@@ -1,20 +1,20 @@
 <?php
-use Jaggy\Watcher\Shell;
+use Jaggy\Watcher\Session;
 use Illuminate\Support\ClassLoader;
 
 /**
- * ShellTest
+ * ConsoleTest
  *
- * @uses        \Jaggy\Watcher\Shell
+ * @uses        \Jaggy\Watcher\Console
  * @uses        \Illumiate\Support\ClassLoader
  *
  * @author      Jaggy Gauran <jaggygauran@gmail.com>
- * @version     Release: 0.1.1
+ * @version     Release: 0.1.3
  * @link        https://github.com/
  * @license     http://www.wtfpl.net/ Do What The Fuck You Want To Public License
  * @since       Class available since Release 0.1.0
  */
-class ShellTest extends PHPUnit_Framework_TestCase
+class SessionTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -41,9 +41,9 @@ class ShellTest extends PHPUnit_Framework_TestCase
         $exec    = Mockery::mock('AdamBrett\ShellWrapper\Runners\ShellExec');
         $builder = Mockery::mock('AdamBrett\ShellWrapper\Command\Builder');
 
-        $shell = new Shell($exec, $builder);
+        $session = new Session($exec, $builder);
 
-        $this->assertInstanceOf('Jaggy\Watcher\Shell', $shell);
+        $this->assertInstanceOf('Jaggy\Watcher\Session', $session);
     }
 
 
@@ -59,7 +59,7 @@ class ShellTest extends PHPUnit_Framework_TestCase
         $expected = [
             [
                 'user'     => 'jaggyspaghetti',
-                'tty'      => 'console',
+                'tty'      => 'session',
                 'from'     => '-',
                 'login_at' => '0:42',
                 'idle'     => '9:54',
@@ -96,13 +96,13 @@ class ShellTest extends PHPUnit_Framework_TestCase
 
         $exec->shouldReceive('run')->andReturn('10:36  up 2 days, 13:21, 4 users, load averages: 2.07 2.08 2.12
 USER     TTY      FROM              LOGIN@  IDLE WHAT
-jaggyspaghetti console  -                 0:42    9:54 -
+jaggyspaghetti session  -                 0:42    9:54 -
 jaggyspaghetti s004     localhost        10:07      29 ssh 127.0.0.1
 jaggyspaghetti s005     localhost        10:07       2 -zsh
 jaggyspaghetti s006     localhost        10:06       - w');
 
-        $shell  = new Shell($exec, $builder);
-        $actual = $shell->sessions();
+        $session = new Session($exec, $builder);
+        $actual  = $session->get();
 
         $this->assertEquals($expected, $actual);
     }
