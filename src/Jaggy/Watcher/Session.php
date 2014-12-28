@@ -90,6 +90,10 @@ class Session
 
         $values = array_slice(array_flatten($matches), 1);
 
+        if (! $values) {
+            $values = array_pad($values, 6, '');
+        }
+
         return array_combine($keys, $values);
     }
 }
