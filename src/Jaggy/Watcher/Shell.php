@@ -49,4 +49,46 @@ class Shell
         $this->shell   = $shell;
         $this->builder = $builder;
     }
+
+
+    /**
+     * List out all the users in the system..
+     *
+     * @access public
+     * @return void
+     */
+    public function sessions()
+    {
+        $sessions = [];
+        $stream   = $this->shell->run($this->builder);
+
+        $rows = array_slice(explode("\n", $stream), 2);
+
+        foreach ($rows as $row) {
+            $sessions[] = $this->extract($row);
+        }
+
+        return $sessions;
+    }
+
+
+    /**
+     * Extract the session information from the given string.
+     *
+     * @param  string $string
+     *
+     * @access protected
+     * @return array
+     */
+    protected function extract($string)
+    {
+        $matches = [];
+        $pattern = '/(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(.+)/';
+
+        preg_match_all($pattern, $string, $matches);
+
+        var_export($matches);
+
+        return [];
+    }
 }
