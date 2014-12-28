@@ -1,10 +1,12 @@
 <?php
 use Jaggy\Watcher\Shell;
+use Illuminate\Support\ClassLoader;
 
 /**
  * ShellTest
  *
  * @uses        \Jaggy\Watcher\Shell
+ * @uses        \Illumiate\Support\ClassLoader
  *
  * @author      Jaggy Gauran <jaggygauran@gmail.com>
  * @version     Release: 0.1.1
@@ -14,6 +16,18 @@ use Jaggy\Watcher\Shell;
  */
 class ShellTest extends PHPUnit_Framework_TestCase
 {
+
+    /**
+     * Initialize configuration.
+     *
+     * @access public
+     * @return void
+     */
+    public function setUp()
+    {
+        ClassLoader::register();
+    }
+
 
     /**
      * it is initializable
@@ -90,6 +104,6 @@ jaggyspaghetti s006     localhost        10:06       - w');
         $shell  = new Shell($exec, $builder);
         $actual = $shell->sessions();
 
-//        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual);
     }
 }

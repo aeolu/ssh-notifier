@@ -4,7 +4,8 @@
     "require": {
         "symfony/console": "~2.6",
         "wrep/daemonizable-command": "~1.2",
-        "adambrett/shell-wrapper": "dev-master"
+        "adambrett/shell-wrapper": "dev-master",
+        "illuminate/support": "~4.2"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*",

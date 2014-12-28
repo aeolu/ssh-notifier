@@ -1,10 +1,12 @@
 #!/usr/bin/env php
 <?php
+use Illuminate\Support\ClassLoader;
 use Jaggy\Watcher\StartDaemonCommand;
 use Symfony\Component\Console\Application;
 
 require 'vendor/autoload.php';
 
+ClassLoader::register();
 $app = new Application('SSH Watcher');
 
 $app->add(new StartDaemonCommand());

@@ -15,7 +15,7 @@ use AdamBrett\ShellWrapper\Command\Builder as CommandBuilder;
  *
  * @package     Jaggy\Watcher
  * @author      Jaggy Gauran <jaggygauran@gmail.com>
- * @version     Release: 0.1.2
+ * @version     Release: 0.1.3
  * @link        https://github.com/
  * @license     http://www.wtfpl.net/ Do What The Fuck You Want To Public License
  * @since       Class available since Release 1.1.0
@@ -82,13 +82,14 @@ class Shell
      */
     protected function extract($string)
     {
+        $keys    = ['user', 'tty', 'from', 'login_at', 'idle', 'action'];
         $matches = [];
         $pattern = '/(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(.+)/';
 
         preg_match_all($pattern, $string, $matches);
 
-        var_export($matches);
+        $values = array_slice(array_flatten($matches), 1);
 
-        return [];
+        return array_combine($keys, $values);
     }
 }
