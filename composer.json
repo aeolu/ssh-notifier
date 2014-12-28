@@ -1,0 +1,9 @@
+{
+  "name": "jaggyspaghetti/ssh-notify",
+  "description": "Daemon to notify all ssh connections",
+  "autoload": {
+    "psr-4": {
+      "": "src"
+    }
+  }
+}

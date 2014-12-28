@@ -1,3 +1,4 @@
-*.swo
-*.swp
-logs/
+.idea/
+vendor/
+composer.lock
+composer.phar
