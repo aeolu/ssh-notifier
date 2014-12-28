@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package     Jaggy\Watcher
  * @author      Jaggy Gauran <jaggygauran@gmail.com>
- * @version     Release: 0.1.0
+ * @version     Release: 0.1.3
  * @link        https://github.com/
  * @license     http://www.wtfpl.net/ Do What The Fuck You Want To Public License
  * @since       Class available since Release 1.1.0
